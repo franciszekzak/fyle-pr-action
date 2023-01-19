@@ -102,7 +102,7 @@ class PRChecks:
 
     def run_title_checks(self):
         title = self.pr.title
-        for check in self.config["pr_checks"]["title"]:
+        for check in self.config["pr_checks"].get("title", []):
             if re.match(check["regex"], title):
                 self.create_comment_conditionally(check.get("message_if_matching"))
             else:
@@ -110,7 +110,7 @@ class PRChecks:
 
     def run_description_checks(self):
         description = self.pr.body or ""  # body can be None, using empty string for regex matching
-        for check in self.config["pr_checks"]["description"]:
+        for check in self.config["pr_checks"].get("description", []):
             if re.match(check["regex"], description):
                 self.create_comment_conditionally(check.get("message_if_matching"))
             else:
@@ -119,7 +119,7 @@ class PRChecks:
     def run_files_changed_checks(self):
         files_changed = self.pr.get_files()
         reviewers_to_assign = set()
-        for check in self.config["pr_checks"]["file_path"]:
+        for check in self.config["pr_checks"].get("file_path", []):
             for file in files_changed:
                 if re.match(check["regex"], file.filename):
                     reviewers = check.get("reviewers")
