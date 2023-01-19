@@ -32,9 +32,10 @@ class PRChecks:
 
     def load_config(self, config_path):
         try:
-            config = yaml.load(open(config_path), Loader=yaml.FullLoader)
-        except FileNotFoundError:
-            print(f"Configuration file not found at {config_path}.")
+            config = yaml.load(self.repository.get_contents(config_path, self.pr.head.sha).decoded_content,
+                               Loader=yaml.FullLoader)
+        except github.GithubException as e:
+            print(f"Configuration file not found at {config_path}: {e}.")
             sys.exit(1)
         except yaml.YAMLError as e:
             print(f"Error parsing configuration file: {e}")
