@@ -35,13 +35,13 @@ class PRChecks:
                                Loader=yaml.FullLoader)
         except github.GithubException as e:
             print(f"Configuration file not found at {config_path}: {e}.")
-            sys.exit(1)
+            raise e
         except yaml.YAMLError as e:
             print(f"Error parsing configuration file: {e}")
-            sys.exit(1)
+            raise e
         except Exception as e:
             print(f"Error loading configuration file: {e}")
-            sys.exit(1)
+            raise e
         else:
             return config
 
