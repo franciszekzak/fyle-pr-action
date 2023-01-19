@@ -131,7 +131,7 @@ class PRChecks:
 if __name__ == "__main__":
 
     pr_checks = PRChecks(
-        config_path=os.environ.get("INPUT_CONFIG_FILE"),
+        config_path=os.environ.get("INPUT_CONFIG-FILE"),
         github_token=os.environ.get("GITHUB_TOKEN"),
         event_file=os.environ.get("GITHUB_EVENT_PATH"),
         event_name=os.environ.get("GITHUB_EVENT_NAME"),
