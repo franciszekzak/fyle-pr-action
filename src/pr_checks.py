@@ -24,11 +24,10 @@ class PRChecks:
     def __init__(self, config_path, github_token, event_file, event_name, github_url, *kwargs):
         self.github = github.Github(base_url=github_url, login_or_token=github_token)
         self.event_name = event_name
+        self.event = self.load_event(event_file)
+        self.repository = self.load_repository()
 
         self.config = self.load_config(config_path)
-        self.event = self.load_event(event_file)
-
-        self.repository = self.load_repository()
 
     def load_config(self, config_path):
         try:
@@ -46,7 +45,8 @@ class PRChecks:
         else:
             return config
 
-    def load_event(self, event_file):
+    @staticmethod
+    def load_event(event_file):
         try:
             event = json.load(open(event_file))
         except FileNotFoundError:
