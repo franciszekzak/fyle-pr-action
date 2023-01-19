@@ -6,4 +6,4 @@ WORKDIR /action
 RUN pip install -r requirements.txt
 
 # Set the entrypoint
-ENTRYPOINT ["python", "src/pr_checks.py"]
+ENTRYPOINT ["python", "/action/src/pr_checks.py"]
